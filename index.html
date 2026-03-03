@@ -3,511 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Tutu Automotores – Fotos</title>
+<title>Tutu Automotores - Fotos</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap');
-
-  :root {
-    --negro: #0a0a0a;
-    --rojo: #e81c2e;
-    --rojo-oscuro: #b5101f;
-    --gris: #1e1e1e;
-    --gris-medio: #2e2e2e;
-    --gris-claro: #888;
-    --blanco: #f5f5f5;
-    --verde: #22c55e;
-    --amarillo: #f59e0b;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--negro);
-    color: var(--blanco);
-    font-family: 'Barlow', sans-serif;
-    min-height: 100vh;
-    padding-bottom: 40px;
-  }
-
-  /* HEADER */
-  header {
-    background: var(--gris);
-    border-bottom: 3px solid var(--rojo);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .logo-icon {
-    width: 40px; height: 40px;
-    background: var(--rojo);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 18px;
-    letter-spacing: -1px;
-    flex-shrink: 0;
-  }
-
-  .header-text h1 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: 1px;
-    line-height: 1;
-  }
-
-  .header-text p {
-    font-size: 11px;
-    color: var(--gris-claro);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 2px;
-  }
-
-  /* MAIN */
-  main { padding: 20px 16px; max-width: 500px; margin: 0 auto; }
-
-  /* CONFIG BANNER */
-  #config-banner {
-    background: linear-gradient(135deg, #2a1a00, #1a0a00);
-    border: 1px solid var(--amarillo);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 20px;
-    display: none;
-  }
-
-  #config-banner.visible { display: block; }
-
-  #config-banner p {
-    font-size: 13px;
-    color: var(--amarillo);
-    line-height: 1.5;
-  }
-
-  #config-banner strong { font-size: 14px; }
-
-  /* SECTION LABEL */
-  .section-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--rojo);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--gris-medio);
-  }
-
-  /* FORM */
-  .card {
-    background: var(--gris);
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #333;
-  }
-
-  .input-group {
-    margin-bottom: 14px;
-  }
-
-  label {
-    display: block;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--gris-claro);
-    margin-bottom: 6px;
-  }
-
-  input[type="text"] {
-    width: 100%;
-    background: var(--negro);
-    border: 1.5px solid #333;
-    border-radius: 8px;
-    padding: 13px 14px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 18px;
-    color: var(--blanco);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-
-  input[type="text"]:focus {
-    outline: none;
-    border-color: var(--rojo);
-  }
-
-  input[type="text"]::placeholder {
-    color: #444;
-    font-weight: 400;
-    letter-spacing: 1px;
-    font-size: 14px;
-    text-transform: none;
-  }
-
-  /* CARPETA PREVIEW */
-  #carpeta-preview {
-    background: var(--negro);
-    border: 1.5px dashed #444;
-    border-radius: 8px;
-    padding: 12px 14px;
-    margin-top: 14px;
-    display: none;
-  }
-
-  #carpeta-preview.visible { display: block; }
-
-  #carpeta-preview .preview-label {
-    font-size: 10px;
-    color: var(--gris-claro);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-  }
-
-  #carpeta-preview .preview-nombre {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    color: var(--verde);
-    letter-spacing: 2px;
-  }
-
-  /* ZONA DE FOTOS */
-  .foto-zone {
-    background: var(--negro);
-    border: 2px dashed #333;
-    border-radius: 12px;
-    padding: 28px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
-  }
-
-  .foto-zone:active {
-    background: #111;
-    border-color: var(--rojo);
-  }
-
-  .foto-zone input[type="file"] {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-  }
-
-  .foto-icon {
-    font-size: 40px;
-    margin-bottom: 8px;
-  }
-
-  .foto-zone p {
-    font-size: 14px;
-    color: var(--gris-claro);
-    line-height: 1.5;
-  }
-
-  .foto-zone strong { color: var(--blanco); }
-
-  /* PREVIEW GRID */
-  #fotos-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 14px;
-  }
-
-  .foto-thumb {
-    aspect-ratio: 1;
-    border-radius: 8px;
-    overflow: hidden;
-    position: relative;
-    background: #222;
-  }
-
-  .foto-thumb img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-  }
-
-  .foto-thumb .foto-estado {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    background: rgba(0,0,0,0.5);
-  }
-
-  .foto-thumb.subida .foto-estado { display: none; }
-  .foto-thumb.subida::after {
-    content: '✓';
-    position: absolute;
-    bottom: 4px; right: 6px;
-    background: var(--verde);
-    color: white;
-    border-radius: 50%;
-    width: 20px; height: 20px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: bold;
-  }
-
-  #fotos-count {
-    font-size: 12px;
-    color: var(--gris-claro);
-    margin-top: 10px;
-    text-align: center;
-  }
-
-  /* BOTÓN PRINCIPAL */
-  #btn-subir {
-    width: 100%;
-    background: var(--rojo);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 18px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  #btn-subir:active { transform: scale(0.98); background: var(--rojo-oscuro); }
-  #btn-subir:disabled { background: #444; color: #666; cursor: not-allowed; transform: none; }
-
-  /* PROGRESS */
-  #progress-section { display: none; margin-bottom: 20px; }
-  #progress-section.visible { display: block; }
-
-  .progress-bar-bg {
-    background: #222;
-    border-radius: 100px;
-    height: 8px;
-    overflow: hidden;
-    margin-bottom: 8px;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--rojo), var(--amarillo));
-    border-radius: 100px;
-    transition: width 0.3s ease;
-    width: 0%;
-  }
-
-  #progress-texto {
-    font-size: 13px;
-    color: var(--gris-claro);
-    text-align: center;
-  }
-
-  /* LOG */
-  #log-section { display: none; }
-  #log-section.visible { display: block; }
-
-  #log-box {
-    background: var(--negro);
-    border: 1px solid #222;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 12px;
-    color: var(--gris-claro);
-    max-height: 160px;
-    overflow-y: auto;
-    font-family: monospace;
-    line-height: 1.8;
-  }
-
-  .log-ok { color: var(--verde); }
-  .log-error { color: #f87171; }
-  .log-info { color: var(--amarillo); }
-
-  /* SUCCESS */
-  #success-card {
-    background: linear-gradient(135deg, #0a2a0a, #051505);
-    border: 1.5px solid var(--verde);
-    border-radius: 14px;
-    padding: 24px 20px;
-    text-align: center;
-    display: none;
-    margin-bottom: 20px;
-  }
-
-  #success-card.visible { display: block; }
-  #success-card .success-icon { font-size: 48px; margin-bottom: 8px; }
-  #success-card h2 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 24px;
-    color: var(--verde);
-    margin-bottom: 6px;
-  }
-  #success-card p { font-size: 14px; color: #aaa; }
-  #success-card a {
-    display: inline-block;
-    margin-top: 14px;
-    color: var(--verde);
-    font-weight: 600;
-    font-size: 14px;
-    text-decoration: none;
-    border: 1px solid var(--verde);
-    padding: 8px 18px;
-    border-radius: 8px;
-  }
-
-  #btn-nueva {
-    width: 100%;
-    background: transparent;
-    border: 1.5px solid #444;
-    color: var(--gris-claro);
-    border-radius: 12px;
-    padding: 14px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    display: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  #btn-nueva.visible { display: block; }
-
-  /* CONFIG */
-  #btn-config {
-    background: none;
-    border: none;
-    color: var(--gris-claro);
-    font-size: 11px;
-    font-family: 'Barlow', sans-serif;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
-    display: block;
-    margin: 0 auto 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  #config-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    z-index: 200;
-    padding: 30px 16px;
-    overflow-y: auto;
-  }
-
-  #config-modal.visible { display: flex; align-items: flex-start; justify-content: center; }
-
-  .config-box {
-    background: var(--gris);
-    border: 1px solid #444;
-    border-radius: 16px;
-    padding: 24px;
-    width: 100%;
-    max-width: 460px;
-  }
-
-  .config-box h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 16px;
-    color: var(--rojo);
-    text-transform: uppercase;
-  }
-
-  .config-box label { color: var(--gris-claro); margin-bottom: 6px; }
-
-  .config-box input[type="text"] {
-    font-size: 13px;
-    letter-spacing: 0.5px;
-    text-transform: none;
-    font-weight: 400;
-    font-family: 'Barlow', sans-serif;
-    margin-bottom: 16px;
-  }
-
-  .config-box .instructions {
-    background: var(--negro);
-    border-radius: 8px;
-    padding: 14px;
-    font-size: 12px;
-    color: var(--gris-claro);
-    line-height: 1.7;
-    margin-bottom: 16px;
-  }
-
-  .config-box .instructions b { color: var(--blanco); }
-
-  .btn-guardar-config {
-    width: 100%;
-    background: var(--rojo);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 14px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 17px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    margin-bottom: 10px;
-  }
-
-  .btn-cancelar-config {
-    width: 100%;
-    background: transparent;
-    color: var(--gris-claro);
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 12px;
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    cursor: pointer;
-  }
+  :root{--negro:#0a0a0a;--rojo:#e81c2e;--rojo-oscuro:#b5101f;--gris:#1e1e1e;--gris-medio:#2e2e2e;--gris-claro:#888;--blanco:#f5f5f5;--verde:#22c55e;--amarillo:#f59e0b;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--negro);color:var(--blanco);font-family:'Barlow',sans-serif;min-height:100vh;padding-bottom:40px;}
+  header{background:var(--gris);border-bottom:3px solid var(--rojo);padding:16px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;}
+  .logo-icon{width:40px;height:40px;background:var(--rojo);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;flex-shrink:0;}
+  .header-text h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;letter-spacing:1px;line-height:1;}
+  .header-text p{font-size:11px;color:var(--gris-claro);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+  main{padding:20px 16px;max-width:500px;margin:0 auto;}
+  .section-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--rojo);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--gris-medio);}
+  .card{background:var(--gris);border-radius:14px;padding:20px;margin-bottom:20px;border:1px solid #333;}
+  .input-group{margin-bottom:14px;}
+  label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--gris-claro);margin-bottom:6px;}
+  input[type="text"]{width:100%;background:var(--negro);border:1.5px solid #333;border-radius:8px;padding:13px 14px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:18px;color:var(--blanco);letter-spacing:2px;text-transform:uppercase;transition:border-color 0.2s;-webkit-appearance:none;}
+  input[type="text"]:focus{outline:none;border-color:var(--rojo);}
+  input[type="text"]::placeholder{color:#444;font-weight:400;letter-spacing:1px;font-size:14px;text-transform:none;}
+  #carpeta-preview{background:var(--negro);border:1.5px dashed #444;border-radius:8px;padding:12px 14px;margin-top:14px;display:none;}
+  #carpeta-preview.visible{display:block;}
+  #carpeta-preview .preview-label{font-size:10px;color:var(--gris-claro);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+  #carpeta-preview .preview-nombre{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--verde);letter-spacing:2px;}
+  .foto-zone{background:var(--negro);border:2px dashed #333;border-radius:12px;padding:28px 20px;text-align:center;cursor:pointer;position:relative;}
+  .foto-zone input[type="file"]{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;}
+  .foto-icon{font-size:40px;margin-bottom:8px;}
+  .foto-zone p{font-size:14px;color:var(--gris-claro);line-height:1.5;}
+  .foto-zone strong{color:var(--blanco);}
+  #fotos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+  .foto-thumb{aspect-ratio:1;border-radius:8px;overflow:hidden;position:relative;background:#222;}
+  .foto-thumb img{width:100%;height:100%;object-fit:cover;}
+  .foto-thumb .foto-estado{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(0,0,0,0.5);}
+  .foto-thumb.subida .foto-estado{display:none;}
+  .foto-thumb.subida::after{content:'✓';position:absolute;bottom:4px;right:6px;background:var(--verde);color:white;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;}
+  .foto-thumb.fallida{border:2px solid #f87171;}
+  #fotos-count{font-size:12px;color:var(--gris-claro);margin-top:10px;text-align:center;}
+  .btn-principal{width:100%;background:var(--rojo);color:white;border:none;border-radius:12px;padding:18px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;-webkit-tap-highlight-color:transparent;margin-bottom:12px;}
+  .btn-principal:disabled{background:#444;color:#666;}
+  .btn-secundario{width:100%;background:transparent;border:1.5px solid #444;color:var(--gris-claro);border-radius:12px;padding:14px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:none;margin-bottom:12px;-webkit-tap-highlight-color:transparent;}
+  .btn-secundario.visible{display:block;}
+  .btn-reintentar{width:100%;background:transparent;border:1.5px solid var(--amarillo);color:var(--amarillo);border-radius:12px;padding:14px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:none;margin-bottom:12px;-webkit-tap-highlight-color:transparent;}
+  .btn-reintentar.visible{display:block;}
+  #progress-section{display:none;margin-bottom:20px;}
+  #progress-section.visible{display:block;}
+  .progress-bar-bg{background:#222;border-radius:100px;height:8px;overflow:hidden;margin-bottom:8px;}
+  .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--rojo),var(--amarillo));border-radius:100px;transition:width 0.3s ease;width:0%;}
+  #progress-texto{font-size:13px;color:var(--gris-claro);text-align:center;}
+  #log-section{display:none;margin-bottom:20px;}
+  #log-section.visible{display:block;}
+  #log-box{background:var(--negro);border:1px solid #222;border-radius:8px;padding:12px;font-size:12px;color:var(--gris-claro);max-height:160px;overflow-y:auto;font-family:monospace;line-height:1.8;}
+  .log-ok{color:var(--verde);}
+  .log-error{color:#f87171;}
+  .log-info{color:var(--amarillo);}
+  #success-card{background:linear-gradient(135deg,#0a2a0a,#051505);border:1.5px solid var(--verde);border-radius:14px;padding:24px 20px;text-align:center;display:none;margin-bottom:20px;}
+  #success-card.visible{display:block;}
+  #success-card .success-icon{font-size:48px;margin-bottom:8px;}
+  #success-card h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;color:var(--verde);margin-bottom:6px;}
+  #success-card p{font-size:14px;color:#aaa;}
+  #success-card a{display:inline-block;margin-top:14px;color:var(--verde);font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--verde);padding:8px 18px;border-radius:8px;}
+  #parcial-card{background:linear-gradient(135deg,#2a1a00,#1a0a00);border:1.5px solid var(--amarillo);border-radius:14px;padding:24px 20px;text-align:center;display:none;margin-bottom:20px;}
+  #parcial-card.visible{display:block;}
+  #parcial-card .parcial-icon{font-size:48px;margin-bottom:8px;}
+  #parcial-card h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;color:var(--amarillo);margin-bottom:6px;}
+  #parcial-card p{font-size:14px;color:#aaa;}
+  #btn-config{background:none;border:none;color:var(--gris-claro);font-size:11px;font-family:'Barlow',sans-serif;cursor:pointer;text-decoration:underline;padding:0;display:block;margin:16px auto 0;text-transform:uppercase;letter-spacing:1px;}
+  #config-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;padding:30px 16px;overflow-y:auto;}
+  #config-modal.visible{display:flex;align-items:flex-start;justify-content:center;}
+  .config-box{background:var(--gris);border:1px solid #444;border-radius:16px;padding:24px;width:100%;max-width:460px;}
+  .config-box h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;margin-bottom:16px;color:var(--rojo);text-transform:uppercase;}
+  .config-box .instructions{background:var(--negro);border-radius:8px;padding:14px;font-size:12px;color:var(--gris-claro);line-height:1.7;margin-bottom:16px;}
+  .config-box .instructions b{color:var(--blanco);}
+  .config-box input[type="text"]{font-size:12px;letter-spacing:0;text-transform:none;font-weight:400;font-family:'Barlow',sans-serif;margin-bottom:16px;}
+  .btn-guardar-config{width:100%;background:var(--rojo);color:white;border:none;border-radius:10px;padding:14px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-bottom:10px;}
+  .btn-cancelar-config{width:100%;background:transparent;color:var(--gris-claro);border:1px solid #444;border-radius:10px;padding:12px;font-family:'Barlow',sans-serif;font-size:14px;cursor:pointer;}
+  #config-banner{background:linear-gradient(135deg,#2a1a00,#1a0a00);border:1px solid var(--amarillo);border-radius:10px;padding:14px 16px;margin-bottom:20px;display:none;}
+  #config-banner.visible{display:block;}
+  #config-banner p{font-size:13px;color:var(--amarillo);line-height:1.5;}
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo-icon">TT</div>
   <div class="header-text">
@@ -515,16 +90,10 @@
     <p>Carga de fotos · Drive</p>
   </div>
 </header>
-
 <main>
-
-  <!-- CONFIG BANNER -->
   <div id="config-banner" class="visible">
-    <p><strong>⚙️ Configuración necesaria</strong><br>
-    Antes de usar la app, tocá <em>"Configurar"</em> y pegá la URL de tu Google Apps Script.</p>
+    <p><strong>Configuracion necesaria</strong><br>Toca "Configurar" abajo y pega la URL de tu Google Apps Script.</p>
   </div>
-
-  <!-- DATOS DEL AUTO -->
   <div class="section-label">Datos del auto</div>
   <div class="card">
     <div class="input-group">
@@ -539,72 +108,52 @@
       <label>Patente</label>
       <input type="text" id="patente" placeholder="Ej: ABC123" oninput="actualizarPreview()">
     </div>
-
     <div id="carpeta-preview">
-      <div class="preview-label">📁 Carpeta que se creará</div>
-      <div class="preview-nombre" id="preview-nombre">—</div>
+      <div class="preview-label">Carpeta que se creara</div>
+      <div class="preview-nombre" id="preview-nombre">-</div>
     </div>
   </div>
-
-  <!-- FOTOS -->
   <div class="section-label">Fotos</div>
   <div class="card">
     <div class="foto-zone">
       <input type="file" id="input-fotos" accept="image/*" multiple>
       <div class="foto-icon">📸</div>
-      <p><strong>Tocá para seleccionar fotos</strong><br>Podés elegir varias a la vez</p>
+      <p><strong>Toca para seleccionar fotos</strong><br>Podes elegir varias a la vez</p>
     </div>
     <div id="fotos-grid"></div>
     <div id="fotos-count"></div>
   </div>
-
-  <!-- PROGRESO -->
   <div id="progress-section">
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill" id="progress-fill"></div>
-    </div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
     <p id="progress-texto">Preparando...</p>
   </div>
-
-  <!-- SUCCESS -->
   <div id="success-card">
     <div class="success-icon">✅</div>
-    <h2>¡Listo!</h2>
-    <p id="success-texto">Las fotos fueron subidas correctamente.</p>
-    <a id="success-link" href="#" target="_blank">Ver carpeta en Drive →</a>
+    <h2>Todo subido!</h2>
+    <p id="success-texto"></p>
+    <a id="success-link" href="#" target="_blank">Ver carpeta en Drive</a>
   </div>
-
-  <!-- LOG -->
-  <div id="log-section" style="margin-bottom:20px">
+  <div id="parcial-card">
+    <div class="parcial-icon">⚠️</div>
+    <h2>Subida parcial</h2>
+    <p id="parcial-texto"></p>
+  </div>
+  <div id="log-section">
     <div class="section-label">Registro</div>
     <div id="log-box"></div>
   </div>
-
-  <!-- BOTÓN PRINCIPAL -->
-  <button id="btn-subir" onclick="iniciarSubida()">
-    <span>☁️</span> Subir Fotos
-  </button>
-
-  <br><br>
-  <button id="btn-nueva" onclick="reiniciar()">+ Cargar otro auto</button>
-
-  <br>
+  <button id="btn-subir" class="btn-principal" onclick="iniciarSubida()">☁️ Subir Fotos</button>
+  <button id="btn-reintentar" class="btn-reintentar" onclick="reintentarFallidas()">🔄 Reintentar fallidas</button>
+  <button id="btn-nueva" class="btn-secundario" onclick="reiniciar()">+ Cargar otro auto</button>
   <button id="btn-config" onclick="abrirConfig()">⚙️ Configurar</button>
-
 </main>
 
-<!-- CONFIG MODAL -->
 <div id="config-modal">
   <div class="config-box">
-    <h3>⚙️ Configuración</h3>
+    <h3>Configuracion</h3>
     <div class="instructions">
-      <b>Cómo obtener la URL del script:</b><br>
-      1. Abrí <b>script.google.com</b><br>
-      2. Pegá el archivo <b>BACKEND_GoogleAppsScript.js</b><br>
-      3. Reemplazá <code>REEMPLAZA_CON_TU_ID_DE_CARPETA</code> con el ID de tu carpeta de Drive<br>
-      4. <b>Implementar → Nueva implementación → Aplicación web</b><br>
-      5. Ejecutar como: <b>Yo</b> · Acceso: <b>Cualquier usuario</b><br>
-      6. Copiá la URL y pegala abajo
+      La URL debe verse asi:<br>
+      <b>https://script.google.com/macros/s/.../exec</b>
     </div>
     <label>URL del Google Apps Script</label>
     <input type="text" id="config-url" placeholder="https://script.google.com/macros/s/...">
@@ -614,246 +163,260 @@
 </div>
 
 <script>
-  // ─── CONFIGURACIÓN ───
-  let API_URL = localStorage.getItem('tutu_api_url') || '';
-  let fotosSeleccionadas = [];
-  let carpetaId = null;
-  let carpetaUrl = null;
+let API_URL = localStorage.getItem('tutu_api_url') || '';
+let fotosSeleccionadas = [];
+let carpetaId = null;
+let carpetaUrl = null;
+let fotosFallidas = []; // indices de fotos que fallaron
 
-  // ─── INIT ───
-  window.onload = () => {
-    if (API_URL) {
-      document.getElementById('config-banner').classList.remove('visible');
-    }
-    document.getElementById('input-fotos').addEventListener('change', manejarFotos);
-  };
+window.onload = () => {
+  if (API_URL) document.getElementById('config-banner').classList.remove('visible');
+  document.getElementById('input-fotos').addEventListener('change', manejarFotos);
+};
 
-  // ─── CONFIG ───
-  function abrirConfig() {
-    document.getElementById('config-url').value = API_URL;
-    document.getElementById('config-modal').classList.add('visible');
+function abrirConfig() {
+  document.getElementById('config-url').value = API_URL;
+  document.getElementById('config-modal').classList.add('visible');
+}
+function cerrarConfig() {
+  document.getElementById('config-modal').classList.remove('visible');
+}
+function guardarConfig() {
+  const url = document.getElementById('config-url').value.trim();
+  if (!url.startsWith('https://script.google.com')) {
+    alert('La URL no parece correcta.');
+    return;
+  }
+  API_URL = url;
+  localStorage.setItem('tutu_api_url', url);
+  document.getElementById('config-banner').classList.remove('visible');
+  cerrarConfig();
+  agregarLog('URL configurada correctamente', 'ok');
+}
+
+function actualizarPreview() {
+  const marca = document.getElementById('marca').value.trim().toUpperCase();
+  const modelo = document.getElementById('modelo').value.trim().toUpperCase();
+  const patente = document.getElementById('patente').value.trim().toUpperCase();
+  const preview = document.getElementById('carpeta-preview');
+  if (marca || modelo || patente) {
+    document.getElementById('preview-nombre').textContent = [marca,modelo,patente].filter(Boolean).join(' ');
+    preview.classList.add('visible');
+  } else {
+    preview.classList.remove('visible');
+  }
+}
+
+function manejarFotos(e) {
+  fotosSeleccionadas = Array.from(e.target.files);
+  const grid = document.getElementById('fotos-grid');
+  grid.innerHTML = '';
+  fotosSeleccionadas.forEach((file, i) => {
+    const div = document.createElement('div');
+    div.className = 'foto-thumb';
+    div.id = 'thumb-' + i;
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    div.appendChild(img);
+    const estado = document.createElement('div');
+    estado.className = 'foto-estado';
+    div.appendChild(estado);
+    grid.appendChild(div);
+  });
+  document.getElementById('fotos-count').textContent =
+    fotosSeleccionadas.length + ' foto' + (fotosSeleccionadas.length !== 1 ? 's' : '') + ' seleccionada' + (fotosSeleccionadas.length !== 1 ? 's' : '');
+}
+
+async function subirFoto(i) {
+  const file = fotosSeleccionadas[i];
+  const patente = document.getElementById('patente').value.trim();
+  const thumb = document.getElementById('thumb-' + i);
+  const nombreArchivo = patente.toUpperCase() + '_' + String(i+1).padStart(2,'0') + '.jpg';
+  const base64 = await fileToBase64(file);
+
+  if (thumb) {
+    thumb.querySelector('.foto-estado').textContent = '⏳';
+    thumb.classList.remove('fallida');
   }
 
-  function cerrarConfig() {
-    document.getElementById('config-modal').classList.remove('visible');
-  }
-
-  function guardarConfig() {
-    const url = document.getElementById('config-url').value.trim();
-    if (!url.startsWith('https://script.google.com')) {
-      alert('La URL no parece correcta. Debe empezar con https://script.google.com');
-      return;
-    }
-    API_URL = url;
-    localStorage.setItem('tutu_api_url', url);
-    document.getElementById('config-banner').classList.remove('visible');
-    cerrarConfig();
-    agregarLog('✓ URL configurada correctamente', 'ok');
-  }
-
-  // ─── PREVIEW CARPETA ───
-  function actualizarPreview() {
-    const marca = document.getElementById('marca').value.trim().toUpperCase();
-    const modelo = document.getElementById('modelo').value.trim().toUpperCase();
-    const patente = document.getElementById('patente').value.trim().toUpperCase();
-    const preview = document.getElementById('carpeta-preview');
-
-    if (marca || modelo || patente) {
-      const nombre = [marca, modelo, patente].filter(Boolean).join(' ');
-      document.getElementById('preview-nombre').textContent = nombre;
-      preview.classList.add('visible');
-    } else {
-      preview.classList.remove('visible');
+  for (let intento = 1; intento <= 3; intento++) {
+    try {
+      if (intento > 1) {
+        agregarLog('Reintentando foto ' + (i+1) + ' (intento ' + intento + '/3)...', 'info');
+        await esperar(2000);
+      }
+      const res = await llamarAPI({
+        action: 'subirFoto',
+        carpetaId,
+        nombreArchivo,
+        base64Data: base64,
+        mimeType: file.type || 'image/jpeg'
+      });
+      if (!res.ok) throw new Error(res.mensaje || 'Error desconocido');
+      agregarLog('Foto ' + (i+1) + ' subida OK', 'ok');
+      if (thumb) { thumb.classList.add('subida'); thumb.querySelector('.foto-estado').textContent = ''; }
+      return true;
+    } catch (err) {
+      agregarLog('Foto ' + (i+1) + ' intento ' + intento + ' fallo: ' + err.message, 'error');
     }
   }
 
-  // ─── MANEJO FOTOS ───
-  function manejarFotos(e) {
-    fotosSeleccionadas = Array.from(e.target.files);
-    const grid = document.getElementById('fotos-grid');
-    grid.innerHTML = '';
+  if (thumb) { thumb.classList.add('fallida'); thumb.querySelector('.foto-estado').textContent = '❌'; }
+  return false;
+}
 
-    fotosSeleccionadas.forEach((file, i) => {
-      const div = document.createElement('div');
-      div.className = 'foto-thumb';
-      div.id = 'thumb-' + i;
+async function iniciarSubida() {
+  const marca = document.getElementById('marca').value.trim();
+  const modelo = document.getElementById('modelo').value.trim();
+  const patente = document.getElementById('patente').value.trim();
 
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(file);
-      div.appendChild(img);
+  if (!API_URL) { alert('Primero configura la URL del script.'); return; }
+  if (!marca || !modelo || !patente) { alert('Completa Marca, Modelo y Patente.'); return; }
+  if (fotosSeleccionadas.length === 0) { alert('Selecciona al menos una foto.'); return; }
 
-      const estado = document.createElement('div');
-      estado.className = 'foto-estado';
-      div.appendChild(estado);
+  document.getElementById('btn-subir').disabled = true;
+  document.getElementById('btn-reintentar').classList.remove('visible');
+  document.getElementById('success-card').classList.remove('visible');
+  document.getElementById('parcial-card').classList.remove('visible');
+  document.getElementById('progress-section').classList.add('visible');
+  document.getElementById('log-section').classList.add('visible');
+  fotosFallidas = [];
 
-      grid.appendChild(div);
-    });
+  setProgreso(5, 'Creando carpeta en Drive...');
+  agregarLog('Iniciando: ' + marca.toUpperCase() + ' ' + modelo.toUpperCase() + ' ' + patente.toUpperCase(), 'info');
 
-    document.getElementById('fotos-count').textContent =
-      fotosSeleccionadas.length + ' foto' + (fotosSeleccionadas.length !== 1 ? 's' : '') + ' seleccionada' + (fotosSeleccionadas.length !== 1 ? 's' : '');
-  }
-
-  // ─── SUBIDA ───
-  async function iniciarSubida() {
-    const marca = document.getElementById('marca').value.trim();
-    const modelo = document.getElementById('modelo').value.trim();
-    const patente = document.getElementById('patente').value.trim();
-
-    if (!API_URL) {
-      alert('Primero configurá la URL del script. Tocá "Configurar" abajo.');
-      return;
-    }
-    if (!marca || !modelo || !patente) {
-      alert('Completá Marca, Modelo y Patente antes de continuar.');
-      return;
-    }
-    if (fotosSeleccionadas.length === 0) {
-      alert('Seleccioná al menos una foto.');
-      return;
-    }
-
-    document.getElementById('btn-subir').disabled = true;
-    document.getElementById('progress-section').classList.add('visible');
-    document.getElementById('log-section').classList.add('visible');
-
-    setProgreso(0, 'Creando carpeta en Drive...');
-    agregarLog('▶ Iniciando para: ' + marca.toUpperCase() + ' ' + modelo.toUpperCase() + ' ' + patente.toUpperCase(), 'info');
-
-    // 1. Crear carpeta
+  // Crear carpeta
+  if (!carpetaId) {
     try {
       const res = await llamarAPI({ action: 'crearCarpeta', marca, modelo, patente });
       if (!res.ok) throw new Error(res.mensaje);
       carpetaId = res.carpetaId;
       carpetaUrl = res.url;
-      agregarLog('✓ Carpeta lista: ' + res.nombreCarpeta, 'ok');
+      agregarLog('Carpeta lista: ' + res.nombreCarpeta, 'ok');
     } catch (err) {
-      agregarLog('✗ Error al crear carpeta: ' + err.message, 'error');
+      agregarLog('Error al crear carpeta: ' + err.message, 'error');
       document.getElementById('btn-subir').disabled = false;
       return;
     }
+  }
 
-   // 2. Subir fotos
+  // Subir fotos
+  let exitosas = 0;
   for (let i = 0; i < fotosSeleccionadas.length; i++) {
-    const file = fotosSeleccionadas[i];
     const pct = 10 + Math.round(((i + 1) / fotosSeleccionadas.length) * 85);
     setProgreso(pct, 'Subiendo foto ' + (i+1) + ' de ' + fotosSeleccionadas.length + '...');
-
-    const thumb = document.getElementById('thumb-' + i);
-    if (thumb) thumb.querySelector('.foto-estado').textContent = '⏳';
-
-    const nombreArchivo = patente.toUpperCase() + '_' + String(i+1).padStart(2,'0') + '.jpg';
-    const base64 = await fileToBase64(file);
-
-    let subida = false;
-    for (let intento = 1; intento <= 3; intento++) {
-      try {
-        if (intento > 1) {
-          agregarLog('Reintentando foto ' + (i+1) + ' (intento ' + intento + '/3)...', 'info');
-          await new Promise(r => setTimeout(r, 2000)); // espera 2 segundos
-        }
-        const res = await llamarAPI({
-          action: 'subirFoto',
-          carpetaId,
-          nombreArchivo,
-          base64Data: base64,
-          mimeType: file.type || 'image/jpeg'
-        });
-        if (!res.ok) throw new Error(res.mensaje);
-        agregarLog('Foto ' + (i+1) + ' subida: ' + res.nombreArchivo, 'ok');
-        if (thumb) { thumb.classList.add('subida'); thumb.querySelector('.foto-estado').textContent = ''; }
-        subida = true;
-        break; // exito, salir del loop de reintentos
-      } catch (err) {
-        agregarLog('Foto ' + (i+1) + ' intento ' + intento + ' fallo: ' + err.message, 'error');
-      }
-    }
-
-    if (!subida) {
-      agregarLog('Foto ' + (i+1) + ' no se pudo subir despues de 3 intentos', 'error');
-      if (thumb) thumb.querySelector('.foto-estado').textContent = '❌';
-    }
+    const ok = await subirFoto(i);
+    if (ok) exitosas++;
+    else fotosFallidas.push(i);
   }
 
-    // 3. Finalizar
-    setProgreso(100, '¡Completado!');
-    agregarLog('✓ Proceso finalizado', 'ok');
-    mostrarExito();
+  setProgreso(100, 'Completado!');
+  finalizarSubida(exitosas);
+}
+
+async function reintentarFallidas() {
+  if (fotosFallidas.length === 0) return;
+
+  document.getElementById('btn-reintentar').classList.remove('visible');
+  document.getElementById('success-card').classList.remove('visible');
+  document.getElementById('parcial-card').classList.remove('visible');
+  document.getElementById('progress-section').classList.add('visible');
+
+  const pendientes = [...fotosFallidas];
+  fotosFallidas = [];
+  let exitosas = 0;
+
+  agregarLog('Reintentando ' + pendientes.length + ' foto(s) fallida(s)...', 'info');
+
+  for (let j = 0; j < pendientes.length; j++) {
+    const i = pendientes[j];
+    const pct = Math.round(((j + 1) / pendientes.length) * 100);
+    setProgreso(pct, 'Reintentando foto ' + (j+1) + ' de ' + pendientes.length + '...');
+    const ok = await subirFoto(i);
+    if (ok) exitosas++;
+    else fotosFallidas.push(i);
   }
 
-  function mostrarExito() {
-    const marca = document.getElementById('marca').value.trim().toUpperCase();
-    const modelo = document.getElementById('modelo').value.trim().toUpperCase();
-    const patente = document.getElementById('patente').value.trim().toUpperCase();
-    const total = fotosSeleccionadas.length;
+  setProgreso(100, 'Completado!');
+  // contar total de exitosas
+  const totalSubidas = fotosSeleccionadas.length - fotosFallidas.length;
+  finalizarSubida(totalSubidas);
+}
 
+function finalizarSubida(exitosas) {
+  const total = fotosSeleccionadas.length;
+  if (fotosFallidas.length === 0) {
+    // Todo OK
     document.getElementById('success-texto').textContent =
-      total + ' foto' + (total !== 1 ? 's' : '') + ' subida' + (total !== 1 ? 's' : '') +
-      ' a la carpeta "' + marca + ' ' + modelo + ' ' + patente + '"';
-
-    if (carpetaUrl) {
-      document.getElementById('success-link').href = carpetaUrl;
-      document.getElementById('success-link').style.display = 'inline-block';
-    } else {
-      document.getElementById('success-link').style.display = 'none';
-    }
-
+      exitosas + ' foto' + (exitosas !== 1 ? 's' : '') + ' subidas correctamente.';
+    if (carpetaUrl) document.getElementById('success-link').href = carpetaUrl;
     document.getElementById('success-card').classList.add('visible');
     document.getElementById('btn-nueva').classList.add('visible');
     document.getElementById('btn-subir').style.display = 'none';
-  }
-
-  function reiniciar() {
-    document.getElementById('marca').value = '';
-    document.getElementById('modelo').value = '';
-    document.getElementById('patente').value = '';
-    document.getElementById('carpeta-preview').classList.remove('visible');
-    document.getElementById('fotos-grid').innerHTML = '';
-    document.getElementById('fotos-count').textContent = '';
-    document.getElementById('input-fotos').value = '';
-    document.getElementById('progress-section').classList.remove('visible');
-    document.getElementById('log-section').classList.remove('visible');
-    document.getElementById('log-box').innerHTML = '';
-    document.getElementById('success-card').classList.remove('visible');
-    document.getElementById('btn-nueva').classList.remove('visible');
-    document.getElementById('btn-subir').style.display = 'flex';
+    document.getElementById('btn-reintentar').classList.remove('visible');
+  } else {
+    // Parcial
+    document.getElementById('parcial-texto').textContent =
+      exitosas + ' subidas, ' + fotosFallidas.length + ' fallaron. Las fallidas estan marcadas con ❌.';
+    document.getElementById('parcial-card').classList.add('visible');
+    document.getElementById('btn-reintentar').classList.add('visible');
+    document.getElementById('btn-nueva').classList.add('visible');
     document.getElementById('btn-subir').disabled = false;
-    fotosSeleccionadas = [];
-    carpetaId = null;
-    carpetaUrl = null;
   }
+}
 
-  // ─── HELPERS ───
-  function setProgreso(pct, texto) {
-    document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('progress-texto').textContent = texto;
-  }
+async function llamarAPI(payload) {
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  });
+  const text = await res.text();
+  try { return JSON.parse(text); }
+  catch(e) { throw new Error('Respuesta invalida del servidor'); }
+}
 
-  function agregarLog(msg, tipo) {
-    const box = document.getElementById('log-box');
-    const line = document.createElement('div');
-    line.className = 'log-' + (tipo || 'info');
-    line.textContent = msg;
-    box.appendChild(line);
-    box.scrollTop = box.scrollHeight;
-  }
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
-  async function llamarAPI(payload) {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(payload)
-    });
-    return await res.json();
-  }
+function esperar(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-  function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result.split(',')[1]);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
+function setProgreso(pct, texto) {
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-texto').textContent = texto;
+}
+
+function agregarLog(msg, tipo) {
+  const box = document.getElementById('log-box');
+  const line = document.createElement('div');
+  line.className = 'log-' + (tipo || 'info');
+  line.textContent = msg;
+  box.appendChild(line);
+  box.scrollTop = box.scrollHeight;
+}
+
+function reiniciar() {
+  ['marca','modelo','patente'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('carpeta-preview').classList.remove('visible');
+  document.getElementById('fotos-grid').innerHTML = '';
+  document.getElementById('fotos-count').textContent = '';
+  document.getElementById('input-fotos').value = '';
+  document.getElementById('progress-section').classList.remove('visible');
+  document.getElementById('log-section').classList.remove('visible');
+  document.getElementById('log-box').innerHTML = '';
+  document.getElementById('success-card').classList.remove('visible');
+  document.getElementById('parcial-card').classList.remove('visible');
+  document.getElementById('btn-nueva').classList.remove('visible');
+  document.getElementById('btn-reintentar').classList.remove('visible');
+  document.getElementById('btn-subir').style.display = 'flex';
+  document.getElementById('btn-subir').disabled = false;
+  fotosSeleccionadas = []; carpetaId = null; carpetaUrl = null; fotosFallidas = [];
+}
 </script>
 </body>
 </html>
