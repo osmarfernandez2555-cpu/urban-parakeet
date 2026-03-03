@@ -732,19 +732,25 @@
       return;
     }
 
-    // 2. Subir fotos
-    for (let i = 0; i < fotosSeleccionadas.length; i++) {
-      const file = fotosSeleccionadas[i];
-      const porcentaje = Math.round(((i + 1) / fotosSeleccionadas.length) * 100);
-      setProgreso(porcentaje * 0.9, `Subiendo foto ${i + 1} de ${fotosSeleccionadas.length}...`);
+   // 2. Subir fotos
+  for (let i = 0; i < fotosSeleccionadas.length; i++) {
+    const file = fotosSeleccionadas[i];
+    const pct = 10 + Math.round(((i + 1) / fotosSeleccionadas.length) * 85);
+    setProgreso(pct, 'Subiendo foto ' + (i+1) + ' de ' + fotosSeleccionadas.length + '...');
 
-      const thumb = document.getElementById('thumb-' + i);
-      if (thumb) thumb.querySelector('.foto-estado').textContent = '⏳';
+    const thumb = document.getElementById('thumb-' + i);
+    if (thumb) thumb.querySelector('.foto-estado').textContent = '⏳';
 
+    const nombreArchivo = patente.toUpperCase() + '_' + String(i+1).padStart(2,'0') + '.jpg';
+    const base64 = await fileToBase64(file);
+
+    let subida = false;
+    for (let intento = 1; intento <= 3; intento++) {
       try {
-        const base64 = await fileToBase64(file);
-        const nombreArchivo = patente.toUpperCase() + '_' + (i + 1).toString().padStart(2, '0') + '_' + Date.now() + '.jpg';
-
+        if (intento > 1) {
+          agregarLog('Reintentando foto ' + (i+1) + ' (intento ' + intento + '/3)...', 'info');
+          await new Promise(r => setTimeout(r, 2000)); // espera 2 segundos
+        }
         const res = await llamarAPI({
           action: 'subirFoto',
           carpetaId,
@@ -752,18 +758,21 @@
           base64Data: base64,
           mimeType: file.type || 'image/jpeg'
         });
-
         if (!res.ok) throw new Error(res.mensaje);
-        agregarLog('✓ Foto ' + (i + 1) + ': ' + res.nombreArchivo, 'ok');
-        if (thumb) {
-          thumb.classList.add('subida');
-          thumb.querySelector('.foto-estado').textContent = '';
-        }
+        agregarLog('Foto ' + (i+1) + ' subida: ' + res.nombreArchivo, 'ok');
+        if (thumb) { thumb.classList.add('subida'); thumb.querySelector('.foto-estado').textContent = ''; }
+        subida = true;
+        break; // exito, salir del loop de reintentos
       } catch (err) {
-        agregarLog('✗ Foto ' + (i + 1) + ' falló: ' + err.message, 'error');
-        if (thumb) thumb.querySelector('.foto-estado').textContent = '❌';
+        agregarLog('Foto ' + (i+1) + ' intento ' + intento + ' fallo: ' + err.message, 'error');
       }
     }
+
+    if (!subida) {
+      agregarLog('Foto ' + (i+1) + ' no se pudo subir despues de 3 intentos', 'error');
+      if (thumb) thumb.querySelector('.foto-estado').textContent = '❌';
+    }
+  }
 
     // 3. Finalizar
     setProgreso(100, '¡Completado!');
