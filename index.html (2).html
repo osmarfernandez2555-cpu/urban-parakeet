@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Tutu Automotores – Fotos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap');
+
+  :root {
+    --negro: #0a0a0a;
+    --rojo: #e81c2e;
+    --rojo-oscuro: #b5101f;
+    --gris: #1e1e1e;
+    --gris-medio: #2e2e2e;
+    --gris-claro: #888;
+    --blanco: #f5f5f5;
+    --verde: #22c55e;
+    --amarillo: #f59e0b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--negro);
+    color: var(--blanco);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--gris);
+    border-bottom: 3px solid var(--rojo);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: var(--rojo);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+
+  .header-text h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .header-text p {
+    font-size: 11px;
+    color: var(--gris-claro);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  /* MAIN */
+  main { padding: 20px 16px; max-width: 500px; margin: 0 auto; }
+
+  /* CONFIG BANNER */
+  #config-banner {
+    background: linear-gradient(135deg, #2a1a00, #1a0a00);
+    border: 1px solid var(--amarillo);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    display: none;
+  }
+
+  #config-banner.visible { display: block; }
+
+  #config-banner p {
+    font-size: 13px;
+    color: var(--amarillo);
+    line-height: 1.5;
+  }
+
+  #config-banner strong { font-size: 14px; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--rojo);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gris-medio);
+  }
+
+  /* FORM */
+  .card {
+    background: var(--gris);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #333;
+  }
+
+  .input-group {
+    margin-bottom: 14px;
+  }
+
+  label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gris-claro);
+    margin-bottom: 6px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    background: var(--negro);
+    border: 1.5px solid #333;
+    border-radius: 8px;
+    padding: 13px 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--blanco);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input[type="text"]:focus {
+    outline: none;
+    border-color: var(--rojo);
+  }
+
+  input[type="text"]::placeholder {
+    color: #444;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 14px;
+    text-transform: none;
+  }
+
+  /* CARPETA PREVIEW */
+  #carpeta-preview {
+    background: var(--negro);
+    border: 1.5px dashed #444;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 14px;
+    display: none;
+  }
+
+  #carpeta-preview.visible { display: block; }
+
+  #carpeta-preview .preview-label {
+    font-size: 10px;
+    color: var(--gris-claro);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  #carpeta-preview .preview-nombre {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--verde);
+    letter-spacing: 2px;
+  }
+
+  /* ZONA DE FOTOS */
+  .foto-zone {
+    background: var(--negro);
+    border: 2px dashed #333;
+    border-radius: 12px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+
+  .foto-zone:active {
+    background: #111;
+    border-color: var(--rojo);
+  }
+
+  .foto-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .foto-icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+
+  .foto-zone p {
+    font-size: 14px;
+    color: var(--gris-claro);
+    line-height: 1.5;
+  }
+
+  .foto-zone strong { color: var(--blanco); }
+
+  /* PREVIEW GRID */
+  #fotos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .foto-thumb {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    background: #222;
+  }
+
+  .foto-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .foto-thumb .foto-estado {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: rgba(0,0,0,0.5);
+  }
+
+  .foto-thumb.subida .foto-estado { display: none; }
+  .foto-thumb.subida::after {
+    content: '✓';
+    position: absolute;
+    bottom: 4px; right: 6px;
+    background: var(--verde);
+    color: white;
+    border-radius: 50%;
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: bold;
+  }
+
+  #fotos-count {
+    font-size: 12px;
+    color: var(--gris-claro);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* BOTÓN PRINCIPAL */
+  #btn-subir {
+    width: 100%;
+    background: var(--rojo);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #btn-subir:active { transform: scale(0.98); background: var(--rojo-oscuro); }
+  #btn-subir:disabled { background: #444; color: #666; cursor: not-allowed; transform: none; }
+
+  /* PROGRESS */
+  #progress-section { display: none; margin-bottom: 20px; }
+  #progress-section.visible { display: block; }
+
+  .progress-bar-bg {
+    background: #222;
+    border-radius: 100px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--rojo), var(--amarillo));
+    border-radius: 100px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  #progress-texto {
+    font-size: 13px;
+    color: var(--gris-claro);
+    text-align: center;
+  }
+
+  /* LOG */
+  #log-section { display: none; }
+  #log-section.visible { display: block; }
+
+  #log-box {
+    background: var(--negro);
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    color: var(--gris-claro);
+    max-height: 160px;
+    overflow-y: auto;
+    font-family: monospace;
+    line-height: 1.8;
+  }
+
+  .log-ok { color: var(--verde); }
+  .log-error { color: #f87171; }
+  .log-info { color: var(--amarillo); }
+
+  /* SUCCESS */
+  #success-card {
+    background: linear-gradient(135deg, #0a2a0a, #051505);
+    border: 1.5px solid var(--verde);
+    border-radius: 14px;
+    padding: 24px 20px;
+    text-align: center;
+    display: none;
+    margin-bottom: 20px;
+  }
+
+  #success-card.visible { display: block; }
+  #success-card .success-icon { font-size: 48px; margin-bottom: 8px; }
+  #success-card h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--verde);
+    margin-bottom: 6px;
+  }
+  #success-card p { font-size: 14px; color: #aaa; }
+  #success-card a {
+    display: inline-block;
+    margin-top: 14px;
+    color: var(--verde);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    border: 1px solid var(--verde);
+    padding: 8px 18px;
+    border-radius: 8px;
+  }
+
+  #btn-nueva {
+    width: 100%;
+    background: transparent;
+    border: 1.5px solid #444;
+    color: var(--gris-claro);
+    border-radius: 12px;
+    padding: 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #btn-nueva.visible { display: block; }
+
+  /* CONFIG */
+  #btn-config {
+    background: none;
+    border: none;
+    color: var(--gris-claro);
+    font-size: 11px;
+    font-family: 'Barlow', sans-serif;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    display: block;
+    margin: 0 auto 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  #config-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    padding: 30px 16px;
+    overflow-y: auto;
+  }
+
+  #config-modal.visible { display: flex; align-items: flex-start; justify-content: center; }
+
+  .config-box {
+    background: var(--gris);
+    border: 1px solid #444;
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    max-width: 460px;
+  }
+
+  .config-box h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--rojo);
+    text-transform: uppercase;
+  }
+
+  .config-box label { color: var(--gris-claro); margin-bottom: 6px; }
+
+  .config-box input[type="text"] {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    font-weight: 400;
+    font-family: 'Barlow', sans-serif;
+    margin-bottom: 16px;
+  }
+
+  .config-box .instructions {
+    background: var(--negro);
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 12px;
+    color: var(--gris-claro);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .config-box .instructions b { color: var(--blanco); }
+
+  .btn-guardar-config {
+    width: 100%;
+    background: var(--rojo);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  .btn-cancelar-config {
+    width: 100%;
+    background: transparent;
+    color: var(--gris-claro);
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 12px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-icon">TT</div>
+  <div class="header-text">
+    <h1>TUTU AUTOMOTORES</h1>
+    <p>Carga de fotos · Drive</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- CONFIG BANNER -->
+  <div id="config-banner" class="visible">
+    <p><strong>⚙️ Configuración necesaria</strong><br>
+    Antes de usar la app, tocá <em>"Configurar"</em> y pegá la URL de tu Google Apps Script.</p>
+  </div>
+
+  <!-- DATOS DEL AUTO -->
+  <div class="section-label">Datos del auto</div>
+  <div class="card">
+    <div class="input-group">
+      <label>Marca</label>
+      <input type="text" id="marca" placeholder="Ej: Toyota" oninput="actualizarPreview()">
+    </div>
+    <div class="input-group">
+      <label>Modelo</label>
+      <input type="text" id="modelo" placeholder="Ej: Corolla" oninput="actualizarPreview()">
+    </div>
+    <div class="input-group" style="margin-bottom:0">
+      <label>Patente</label>
+      <input type="text" id="patente" placeholder="Ej: ABC123" oninput="actualizarPreview()">
+    </div>
+
+    <div id="carpeta-preview">
+      <div class="preview-label">📁 Carpeta que se creará</div>
+      <div class="preview-nombre" id="preview-nombre">—</div>
+    </div>
+  </div>
+
+  <!-- FOTOS -->
+  <div class="section-label">Fotos</div>
+  <div class="card">
+    <div class="foto-zone">
+      <input type="file" id="input-fotos" accept="image/*" multiple>
+      <div class="foto-icon">📸</div>
+      <p><strong>Tocá para seleccionar fotos</strong><br>Podés elegir varias a la vez</p>
+    </div>
+    <div id="fotos-grid"></div>
+    <div id="fotos-count"></div>
+  </div>
+
+  <!-- PROGRESO -->
+  <div id="progress-section">
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <p id="progress-texto">Preparando...</p>
+  </div>
+
+  <!-- SUCCESS -->
+  <div id="success-card">
+    <div class="success-icon">✅</div>
+    <h2>¡Listo!</h2>
+    <p id="success-texto">Las fotos fueron subidas correctamente.</p>
+    <a id="success-link" href="#" target="_blank">Ver carpeta en Drive →</a>
+  </div>
+
+  <!-- LOG -->
+  <div id="log-section" style="margin-bottom:20px">
+    <div class="section-label">Registro</div>
+    <div id="log-box"></div>
+  </div>
+
+  <!-- BOTÓN PRINCIPAL -->
+  <button id="btn-subir" onclick="iniciarSubida()">
+    <span>☁️</span> Subir Fotos
+  </button>
+
+  <br><br>
+  <button id="btn-nueva" onclick="reiniciar()">+ Cargar otro auto</button>
+
+  <br>
+  <button id="btn-config" onclick="abrirConfig()">⚙️ Configurar</button>
+
+</main>
+
+<!-- CONFIG MODAL -->
+<div id="config-modal">
+  <div class="config-box">
+    <h3>⚙️ Configuración</h3>
+    <div class="instructions">
+      <b>Cómo obtener la URL del script:</b><br>
+      1. Abrí <b>script.google.com</b><br>
+      2. Pegá el archivo <b>BACKEND_GoogleAppsScript.js</b><br>
+      3. Reemplazá <code>REEMPLAZA_CON_TU_ID_DE_CARPETA</code> con el ID de tu carpeta de Drive<br>
+      4. <b>Implementar → Nueva implementación → Aplicación web</b><br>
+      5. Ejecutar como: <b>Yo</b> · Acceso: <b>Cualquier usuario</b><br>
+      6. Copiá la URL y pegala abajo
+    </div>
+    <label>URL del Google Apps Script</label>
+    <input type="text" id="config-url" placeholder="https://script.google.com/macros/s/...">
+    <button class="btn-guardar-config" onclick="guardarConfig()">Guardar</button>
+    <button class="btn-cancelar-config" onclick="cerrarConfig()">Cancelar</button>
+  </div>
+</div>
+
+<script>
+  // ─── CONFIGURACIÓN ───
+  let API_URL = localStorage.getItem('tutu_api_url') || '';
+  let fotosSeleccionadas = [];
+  let carpetaId = null;
+  let carpetaUrl = null;
+
+  // ─── INIT ───
+  window.onload = () => {
+    if (API_URL) {
+      document.getElementById('config-banner').classList.remove('visible');
+    }
+    document.getElementById('input-fotos').addEventListener('change', manejarFotos);
+  };
+
+  // ─── CONFIG ───
+  function abrirConfig() {
+    document.getElementById('config-url').value = API_URL;
+    document.getElementById('config-modal').classList.add('visible');
+  }
+
+  function cerrarConfig() {
+    document.getElementById('config-modal').classList.remove('visible');
+  }
+
+  function guardarConfig() {
+    const url = document.getElementById('config-url').value.trim();
+    if (!url.startsWith('https://script.google.com')) {
+      alert('La URL no parece correcta. Debe empezar con https://script.google.com');
+      return;
+    }
+    API_URL = url;
+    localStorage.setItem('tutu_api_url', url);
+    document.getElementById('config-banner').classList.remove('visible');
+    cerrarConfig();
+    agregarLog('✓ URL configurada correctamente', 'ok');
+  }
+
+  // ─── PREVIEW CARPETA ───
+  function actualizarPreview() {
+    const marca = document.getElementById('marca').value.trim().toUpperCase();
+    const modelo = document.getElementById('modelo').value.trim().toUpperCase();
+    const patente = document.getElementById('patente').value.trim().toUpperCase();
+    const preview = document.getElementById('carpeta-preview');
+
+    if (marca || modelo || patente) {
+      const nombre = [marca, modelo, patente].filter(Boolean).join(' ');
+      document.getElementById('preview-nombre').textContent = nombre;
+      preview.classList.add('visible');
+    } else {
+      preview.classList.remove('visible');
+    }
+  }
+
+  // ─── MANEJO FOTOS ───
+  function manejarFotos(e) {
+    fotosSeleccionadas = Array.from(e.target.files);
+    const grid = document.getElementById('fotos-grid');
+    grid.innerHTML = '';
+
+    fotosSeleccionadas.forEach((file, i) => {
+      const div = document.createElement('div');
+      div.className = 'foto-thumb';
+      div.id = 'thumb-' + i;
+
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      div.appendChild(img);
+
+      const estado = document.createElement('div');
+      estado.className = 'foto-estado';
+      div.appendChild(estado);
+
+      grid.appendChild(div);
+    });
+
+    document.getElementById('fotos-count').textContent =
+      fotosSeleccionadas.length + ' foto' + (fotosSeleccionadas.length !== 1 ? 's' : '') + ' seleccionada' + (fotosSeleccionadas.length !== 1 ? 's' : '');
+  }
+
+  // ─── SUBIDA ───
+  async function iniciarSubida() {
+    const marca = document.getElementById('marca').value.trim();
+    const modelo = document.getElementById('modelo').value.trim();
+    const patente = document.getElementById('patente').value.trim();
+
+    if (!API_URL) {
+      alert('Primero configurá la URL del script. Tocá "Configurar" abajo.');
+      return;
+    }
+    if (!marca || !modelo || !patente) {
+      alert('Completá Marca, Modelo y Patente antes de continuar.');
+      return;
+    }
+    if (fotosSeleccionadas.length === 0) {
+      alert('Seleccioná al menos una foto.');
+      return;
+    }
+
+    document.getElementById('btn-subir').disabled = true;
+    document.getElementById('progress-section').classList.add('visible');
+    document.getElementById('log-section').classList.add('visible');
+
+    setProgreso(0, 'Creando carpeta en Drive...');
+    agregarLog('▶ Iniciando para: ' + marca.toUpperCase() + ' ' + modelo.toUpperCase() + ' ' + patente.toUpperCase(), 'info');
+
+    // 1. Crear carpeta
+    try {
+      const res = await llamarAPI({ action: 'crearCarpeta', marca, modelo, patente });
+      if (!res.ok) throw new Error(res.mensaje);
+      carpetaId = res.carpetaId;
+      carpetaUrl = res.url;
+      agregarLog('✓ Carpeta lista: ' + res.nombreCarpeta, 'ok');
+    } catch (err) {
+      agregarLog('✗ Error al crear carpeta: ' + err.message, 'error');
+      document.getElementById('btn-subir').disabled = false;
+      return;
+    }
+
+    // 2. Subir fotos
+    for (let i = 0; i < fotosSeleccionadas.length; i++) {
+      const file = fotosSeleccionadas[i];
+      const porcentaje = Math.round(((i + 1) / fotosSeleccionadas.length) * 100);
+      setProgreso(porcentaje * 0.9, `Subiendo foto ${i + 1} de ${fotosSeleccionadas.length}...`);
+
+      const thumb = document.getElementById('thumb-' + i);
+      if (thumb) thumb.querySelector('.foto-estado').textContent = '⏳';
+
+      try {
+        const base64 = await fileToBase64(file);
+        const nombreArchivo = patente.toUpperCase() + '_' + (i + 1).toString().padStart(2, '0') + '_' + Date.now() + '.jpg';
+
+        const res = await llamarAPI({
+          action: 'subirFoto',
+          carpetaId,
+          nombreArchivo,
+          base64Data: base64,
+          mimeType: file.type || 'image/jpeg'
+        });
+
+        if (!res.ok) throw new Error(res.mensaje);
+        agregarLog('✓ Foto ' + (i + 1) + ': ' + res.nombreArchivo, 'ok');
+        if (thumb) {
+          thumb.classList.add('subida');
+          thumb.querySelector('.foto-estado').textContent = '';
+        }
+      } catch (err) {
+        agregarLog('✗ Foto ' + (i + 1) + ' falló: ' + err.message, 'error');
+        if (thumb) thumb.querySelector('.foto-estado').textContent = '❌';
+      }
+    }
+
+    // 3. Finalizar
+    setProgreso(100, '¡Completado!');
+    agregarLog('✓ Proceso finalizado', 'ok');
+    mostrarExito();
+  }
+
+  function mostrarExito() {
+    const marca = document.getElementById('marca').value.trim().toUpperCase();
+    const modelo = document.getElementById('modelo').value.trim().toUpperCase();
+    const patente = document.getElementById('patente').value.trim().toUpperCase();
+    const total = fotosSeleccionadas.length;
+
+    document.getElementById('success-texto').textContent =
+      total + ' foto' + (total !== 1 ? 's' : '') + ' subida' + (total !== 1 ? 's' : '') +
+      ' a la carpeta "' + marca + ' ' + modelo + ' ' + patente + '"';
+
+    if (carpetaUrl) {
+      document.getElementById('success-link').href = carpetaUrl;
+      document.getElementById('success-link').style.display = 'inline-block';
+    } else {
+      document.getElementById('success-link').style.display = 'none';
+    }
+
+    document.getElementById('success-card').classList.add('visible');
+    document.getElementById('btn-nueva').classList.add('visible');
+    document.getElementById('btn-subir').style.display = 'none';
+  }
+
+  function reiniciar() {
+    document.getElementById('marca').value = '';
+    document.getElementById('modelo').value = '';
+    document.getElementById('patente').value = '';
+    document.getElementById('carpeta-preview').classList.remove('visible');
+    document.getElementById('fotos-grid').innerHTML = '';
+    document.getElementById('fotos-count').textContent = '';
+    document.getElementById('input-fotos').value = '';
+    document.getElementById('progress-section').classList.remove('visible');
+    document.getElementById('log-section').classList.remove('visible');
+    document.getElementById('log-box').innerHTML = '';
+    document.getElementById('success-card').classList.remove('visible');
+    document.getElementById('btn-nueva').classList.remove('visible');
+    document.getElementById('btn-subir').style.display = 'flex';
+    document.getElementById('btn-subir').disabled = false;
+    fotosSeleccionadas = [];
+    carpetaId = null;
+    carpetaUrl = null;
+  }
+
+  // ─── HELPERS ───
+  function setProgreso(pct, texto) {
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-texto').textContent = texto;
+  }
+
+  function agregarLog(msg, tipo) {
+    const box = document.getElementById('log-box');
+    const line = document.createElement('div');
+    line.className = 'log-' + (tipo || 'info');
+    line.textContent = msg;
+    box.appendChild(line);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  async function llamarAPI(payload) {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  }
+
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+</script>
+</body>
+</html>
